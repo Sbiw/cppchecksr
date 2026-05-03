@@ -1,0 +1,37 @@
+# Dipendenze
+node_modules/
+
+# Output di compilazione e pacchetti
+out/
+*.vsix
+*.vsixmanifest
+*.tsbuildinfo
+
+# Test
+.vscode-test/
+
+# File di sistema e temporanei
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lcov.info
+coverage/
+
+# Varie ed eventuali
+.history/
+.ionide/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Configurazioni locali degli editor (opzionale ma consigliato)
+.idea/

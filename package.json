@@ -1,0 +1,61 @@
+{
+  "name": "cppchecksr",
+  "displayName": "cppcheckSR",
+  "description": "integrazione di cppcheck su vsc",
+  "version": "0.0.1",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cppchecksr.analizzaFile",
+        "title": "cppcheck analizza file corrente"
+      },
+      {
+        "command": "cppchecksr.analizzaProgeto",
+        "title": "cppcheck analizza progetto"
+      }
+    ],
+    "configuration": {
+      "title": "cppchecksr",
+      "properties": {
+        "cppchecksr.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "abilita o disabilita l'analisi di cppcheck"
+        },
+        "cppchecksr.cppStandard": {
+          "type": "string",
+          "default": "c++17",
+          "enum": ["c++11","c++14","c++17","c++20","c++23"],
+          "description": "selezionare versione c++ per l'analisi"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.19.17",
+    "@types/vscode": "^1.60.0",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.39.3",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.1"
+  }
+}
