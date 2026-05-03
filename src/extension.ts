@@ -49,6 +49,7 @@ function runCppcheck(targetPath: string, diagnosticCollection: vscode.Diagnostic
     }
     
     const stdSel = config.get<string>(`cppStandard`,`c++17`);
+    const addON = config.get<string>(`addOn`,`misra`);
 
     const workspaceFolders = vscode.workspace.workspaceFolders;
     if (!workspaceFolders) {
@@ -62,11 +63,11 @@ function runCppcheck(targetPath: string, diagnosticCollection: vscode.Diagnostic
 
     if (isProject)
     {
-        command = `cppcheck --enable=all --std=${stdSel} --suppress=missingIncludeSystem --xml --project="${compileCommandsPath}"`;
+        command = `cppcheck --enable=all --addon=${addON} --std=${stdSel} --suppress=missingIncludeSystem --xml --project="${compileCommandsPath}"`;
     }
     else
     {
-        command = `cppcheck --enable=all --std=${stdSel} --suppress=missingIncludeSystem --xml "${targetPath}"`;
+        command = `cppcheck --enable=all --addon=${addON} --std=${stdSel} --suppress=missingIncludeSystem --xml "${targetPath}"`;
     }
 
     // comandi da lanciare stampati nel canale di output

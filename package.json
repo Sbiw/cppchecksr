@@ -2,6 +2,15 @@
   "name": "cppchecksr",
   "displayName": "cppcheckSR",
   "description": "integrazione di cppcheck su vsc",
+  "icon": "icona.png",
+  "author": {
+    "name": "Stefano Riccobaldi"
+  },
+  "publisher": "StefanoRiccobaldiPublisher",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sbiw/cppchecksr.git"
+  },
   "version": "0.0.1",
   "license": "MIT",
   "engines": {
@@ -35,6 +44,12 @@
           "type": "string",
           "default": "c++17",
           "enum": ["c++11","c++14","c++17","c++20","c++23"],
+          "description": "selezionare versione c++ per l'analisi"
+        },
+        "cppchecksr.addOn": {
+          "type": "string",
+          "default": "misra",
+          "enum": ["misra","threadsafety","y2038","namingng","findcasts","misc"],
           "description": "selezionare versione c++ per l'analisi"
         }
       }
