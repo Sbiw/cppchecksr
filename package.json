@@ -6,7 +6,7 @@
   "author": {
     "name": "Stefano Riccobaldi"
   },
-  "publisher": "StefanoRiccobaldiPublisher",
+  "publisher": "StefanoRiccobaldi",
   "repository": {
     "type": "git",
     "url": "https://github.com/Sbiw/cppchecksr.git"
@@ -48,9 +48,14 @@
         },
         "cppchecksr.addOn": {
           "type": "string",
-          "default": "misra",
-          "enum": ["misra","threadsafety","y2038","namingng","findcasts","misc"],
+          "default": "none",
+          "enum": ["none","misra","threadsafety","y2038","namingng","findcasts","misc"],
           "description": "selezionare versione c++ per l'analisi"
+        },
+        "cppchecksr.extraArgs": {
+          "type": "string",
+          "default": "",
+          "description": "aggiungere argomenti extra al comando"
         }
       }
     }

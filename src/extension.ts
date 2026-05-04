@@ -49,7 +49,8 @@ function runCppcheck(targetPath: string, diagnosticCollection: vscode.Diagnostic
     }
     
     const stdSel = config.get<string>(`cppStandard`,`c++17`);
-    const addON = config.get<string>(`addOn`,`misra`);
+    const addON = config.get<string>(`addOn`,`none`);
+    const extraArgs = config.get<string>(`extraArgs`,``);
 
     const workspaceFolders = vscode.workspace.workspaceFolders;
     if (!workspaceFolders) {
@@ -59,15 +60,19 @@ function runCppcheck(targetPath: string, diagnosticCollection: vscode.Diagnostic
     // genero il comando da lanciare per singolo file o progetto
     const workspacePath = workspaceFolders[0].uri.fsPath;
     const compileCommandsPath = path.join(workspacePath, 'build', 'compile_commands.json');
-    let command = "";
+
+    let command = `cppcheck --enable=all --suppress=missingIncludeSystem --xml --std=${stdSel}`;
+
+    if(addON !== "none") {command += ` --addon=${addON}`;};
+    if(extraArgs.trim() !== ``) {command += ` ${extraArgs.trim()}`;};
 
     if (isProject)
     {
-        command = `cppcheck --enable=all --addon=${addON} --std=${stdSel} --suppress=missingIncludeSystem --xml --project="${compileCommandsPath}"`;
+        command += ` --project="${compileCommandsPath}"`;
     }
     else
     {
-        command = `cppcheck --enable=all --addon=${addON} --std=${stdSel} --suppress=missingIncludeSystem --xml "${targetPath}"`;
+        command += ` ${targetPath}`;
     }
 
     // comandi da lanciare stampati nel canale di output

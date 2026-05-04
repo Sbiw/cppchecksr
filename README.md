@@ -20,6 +20,7 @@ Impostazioni dell'estensione:
 * `cppchecksr.enable`: Enable/disable dell'estensione.
 * `cppchecksr.cppStandard`: selezione dello standard c++ per l'analisi.
 * `cppchecksr.addOn`: selezione addon per cppcheck
+* `cppchecksr.extraArgs`: possibilità di aggiungere argomenti custom
 
 ## Known Issues
 
