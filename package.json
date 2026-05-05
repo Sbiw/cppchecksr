@@ -19,7 +19,10 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:cppchecksr.analizzaFile",
+    "onCommand:cppchecksr.analizzaProgetto"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -28,7 +31,7 @@
         "title": "cppcheck analizza file corrente"
       },
       {
-        "command": "cppchecksr.analizzaProgeto",
+        "command": "cppchecksr.analizzaProgetto",
         "title": "cppcheck analizza progetto"
       }
     ],

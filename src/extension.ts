@@ -22,7 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     // Comando per l'intero progetto (cartella workspace attiva)
-    let disposableProject = vscode.commands.registerCommand('cppchecksr.analizzaProgeto', () => {
+    let disposableProject = vscode.commands.registerCommand('cppchecksr.analizzaProgetto', () => {
         const workspaceFolders = vscode.workspace.workspaceFolders;
         if (!workspaceFolders) {
             vscode.window.showErrorMessage('Nessun progetto aperto nel workspace.');
