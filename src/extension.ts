@@ -37,7 +37,7 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposableFile, disposableProject);
 }
 
-function runCppcheck(targetPath: string, diagnosticCollection: vscode.DiagnosticCollection, isProject: boolean = false)
+async function runCppcheck(targetPath: string, diagnosticCollection: vscode.DiagnosticCollection, isProject: boolean = false)
 {
     // leggo le configurazioni
     const config = vscode.workspace.getConfiguration(`cppchecksr`);
@@ -59,7 +59,17 @@ function runCppcheck(targetPath: string, diagnosticCollection: vscode.Diagnostic
     
     // genero il comando da lanciare per singolo file o progetto
     const workspacePath = workspaceFolders[0].uri.fsPath;
-    const compileCommandsPath = path.join(workspacePath, 'build', 'compile_commands.json');
+    let compileCommandsPath: String | undefined;
+
+    if (isProject)
+    {
+        compileCommandsPath = await getPathCompile();
+        if(!compileCommandsPath) {return;}
+    }
+    else
+    {
+        compileCommandsPath = path.join(workspacePath, `build`, `compile_commands.json`);
+    }
 
     let command = `cppcheck --enable=all --suppress=missingIncludeSystem --xml --std=${stdSel}`;
 
@@ -107,6 +117,35 @@ function runCppcheck(targetPath: string, diagnosticCollection: vscode.Diagnostic
             cppcheckOutput.appendLine("cppcheck non ha rilevato errori o non ha riconosciuto output");
         }
     });
+}
+
+async function getPathCompile():Promise<string | undefined>
+{
+    const files = await vscode.workspace.findFiles('**/compile_commands.json');
+
+    if(files.length === 0)
+    {
+        vscode.window.showErrorMessage(`nessun file compile_commands.json trovato dentro il workspace`);
+        return undefined;
+    }
+    if(files.length === 1)
+    {
+        return files[0].fsPath;
+    }
+
+    const selProgetto = files.map(file => {
+        const folderName = path.basename(path.dirname(path.dirname(file.fsPath)));
+        return {
+            label: `Progetto: ${folderName}`,
+            description: file.path,
+            targetUri: file
+        };
+    });
+
+    const selezionato = await vscode.window.showQuickPick(selProgetto,
+        {placeHolder: `seleziona il progetto da analizzare`});
+
+    return selezionato ? selezionato.targetUri.fsPath : undefined;
 }
 
 function decodeXmlEntities(str: string): string {
